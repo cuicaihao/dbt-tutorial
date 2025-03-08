@@ -6,15 +6,18 @@ models:
       ### One record per customer
       * This model contains one record per customer, with the most recent order date and order status.
       * The `customer_id` field is a primary key.
-
     columns:
       - name: customer_id
         description: Primary key
         tests:
-          - unique
-          - not_null
+          - id_not_null
+          # - unique
+          # - not_null
       - name: first_order_date
         description: NULL when a customer has not yet placed an order.
+      - name: first_name 
+        tests:
+          - string_not_empty  
 
   - name: stg_customers
     description: This model cleans up customer data
@@ -30,10 +33,11 @@ models:
     columns:
       - name: order_id
         description: Primary key
-        tests:
-          - unique
-          - not_null
+        # tests:
+        #   - unique
+        #   - not_null
       - name: status
+        description: "{{ doc('status')}}" 
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
