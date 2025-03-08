@@ -1,0 +1,12 @@
+jaffle_shop:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      dataset: jaffle_shop
+      job_execution_timeout_seconds: 300
+      location: US
+      priority: interactive
+      project: GCP_PROJECT_ID
+      threads: 1

@@ -1,0 +1,23 @@
+steps:
+  # Build app
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "--file",
+        "Dockerfile",
+        "-t",
+        "us-centra1-docker.pkg.dev/$PROJECT_ID/dbt-service/jaffle_shop:test",
+        ".",
+      ]
+    id: BUILD
+
+  # Storage of the image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-centra1-docker.pkg.dev/$PROJECT_ID/dbt-service/jaffle_shop:test",
+      ]
+    id: STORAGE
+# gcloud builds submit . --region us-central1  --config cloudbuild.yml

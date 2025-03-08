@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: dbt-tutorial
+    schema: jaffle_shop
+    tables:
+      - name: orders
+        loaded_at_field: order_date
+        freshness:
+          warn_after: {count: 14, period: day}
+          error_after: {count: 300, period: day}
+      - name: customers
